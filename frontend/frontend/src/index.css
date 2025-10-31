@@ -1,68 +1,85 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Global Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent);
   text-decoration: inherit;
+  transition: color 0.2s ease;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--primary-hover);
+}
+
+/* CSS Variables for Theming */
+:root {
+  /* Light Theme Colors */
+  --bg: #fafbfc;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #6366f1;
+  --primary-hover: #5b5bd6;
+  --editor-bg: #ffffff;
+  --card-shadow: rgba(44, 62, 80, 0.08);
+  --border: #e5e7eb;
+}
+
+/* Dark Theme Overrides */
+.theme-dark {
+  --bg: #0f172a !important;
+  --panel: #1e293b !important;
+  --text: #f1f5f9 !important;
+  --muted: #cbd5e1 !important;
+  --accent: #8b5cf6 !important;
+  --primary-hover: #7c3aed !important;
+  --editor-bg: #334155 !important;
+  --card-shadow: rgba(0, 0, 0, 0.6) !important;
+  --border: #475569 !important;
+}
+
+/* Global Base Styles */
+html {
+  height: 100%;
+  background: var(--bg) !important;
+  transition: background-color 0.3s ease;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  height: 100%;
+  background: var(--bg) !important;
+  transition: background-color 0.3s ease;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Example defaults so existing components pick up variables */
+.auth-card,
+.card,
+.panel {
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 8px 24px var(--card-shadow);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Quill/Editor */
+.ql-container,
+.ql-editor {
+  background: var(--editor-bg) !important;
+  color: var(--text) !important;
 }

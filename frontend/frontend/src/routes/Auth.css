@@ -1,0 +1,243 @@
+/* Auth Page Container */
+.auth-container {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+/* Left Side - Illustration */
+.auth-illustration {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: white;
+}
+
+.auth-illustration-content {
+    max-width: 500px;
+    text-align: center;
+}
+
+.auth-illustration h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.auth-illustration p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Right Side - Form */
+.auth-form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: var(--panel);
+    position: relative;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+}
+
+.auth-form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-form-header h2 {
+    font-size: 1.75rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.auth-form-header p {
+    color: var(--muted);
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--panel);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.auth-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.auth-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    transition: var(--transition);
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Toggle between Login/Signup */
+.auth-toggle {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .auth-container {
+        flex-direction: column;
+    }
+    
+    .auth-illustration {
+        padding: 4rem 2rem;
+    }
+    
+    .auth-form-container {
+        padding: 4rem 2rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-form {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Custom Checkbox */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 0.5rem;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+}
+
+/* Social Login Buttons */
+.social-login {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.social-login p {
+    position: relative;
+    color: var(--muted);
+    margin: 1.5rem 0;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.social-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+}
+
+.social-btn img {
+    width: 20px;
+    height: 20px;
+}

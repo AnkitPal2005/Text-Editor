@@ -1,23 +1,48 @@
-import React,{createContext,useEffect,useState} from "react";
-import { use } from "react";
-import { Children } from "react";
-export const ThemeContext=createContext();
-export const  ThemeProvider=({Children})=>{
-    const[theme,setTheme]=useState("light");
-    useEffect(()=>{
-        const savedTheme=localStorage.getItem("theme");
-        if(savedTheme) setTheme(savedTheme);
-    },[]);
-    useEffect(()=>{
-        document.body.className=theme;
-        localStorage.setItem("theme",theme);
-    },[theme]);
-    const toggleTheme=()=>{
-        setTheme(theme==="light"?"dark":"light");
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved;
+    } catch (e) {
+        //kuch nahi
     }
-    return(
-        <ThemeContext.Provider value={{theme,toggleTheme}}>
-            {children}
-        </ThemeContext.Provider>
-    )
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "dark";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    // persist
+    localStorage.setItem("theme", theme);
+    // apply class to root so global CSS can react
+    document.documentElement.classList.toggle("theme-dark", theme === "dark");
+    document.documentElement.classList.toggle("theme-light", theme === "light");
+    
+    // Also apply to body for immediate effect
+    document.body.classList.toggle("theme-dark", theme === "dark");
+    document.body.classList.toggle("theme-light", theme === "light");
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
+
+export const useTheme = () => {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
+  return ctx;
+};
