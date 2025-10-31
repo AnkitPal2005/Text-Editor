@@ -10,7 +10,7 @@ const router = express.Router();
 /* Utility to validate ObjectId */
 const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
 
-/* 🧩 Get Document Content by ID */
+/* Get Document Content by ID */
 router.get("/getdata/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -20,16 +20,16 @@ router.get("/getdata/:id", async (req, res) => {
     const doc = await Document.findById(id).select("content title");
     if (!doc) return res.status(404).json({ error: "Document not found" });
 
-    res.status(200).json({ 
+    res.status(200).json({
       content: doc.content,
-      title: doc.title 
+      title: doc.title
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-/* 🔗 Get Document Content via Share Link */
+/* Get Document Content via Share Link */
 router.get("/share-link/:link", async (req, res) => {
   try {
     const { link } = req.params;
@@ -42,18 +42,18 @@ router.get("/share-link/:link", async (req, res) => {
     if (meta.expiresAt && new Date(meta.expiresAt) < new Date()) {
       return res.status(410).json({ error: "Link expired" });
     }
-    res.status(200).json({ 
-      content: doc.content, 
+    res.status(200).json({
+      content: doc.content,
       title: doc.title,
-      role: meta.role, 
-      docId: doc._id 
+      role: meta.role,
+      docId: doc._id
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-/* 📝 Create New Document */
+/* Create New Document */
 router.post("/create", auth, async (req, res) => {
   try {
     const { title } = req.body;
@@ -70,7 +70,7 @@ router.post("/create", auth, async (req, res) => {
   }
 });
 
-/* 📜 List Documents by Owner */
+/* List Documents by Owner */
 router.get("/list/:ownerId", async (req, res) => {
   try {
     const { ownerId } = req.params;
@@ -86,7 +86,7 @@ router.get("/list/:ownerId", async (req, res) => {
   }
 });
 
-/* 🧠 Get Full Document */
+/* Get Full Document */
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -102,7 +102,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-/* 🖨️ Export Document as PDF */
+/* Export Document as PDF */
 router.get("/:id/export/pdf", async (req, res) => {
   try {
     const { id } = req.params;
@@ -128,7 +128,7 @@ router.get("/:id/export/pdf", async (req, res) => {
   }
 });
 
-/* 🖨️ Export Document as PDF via Share Link */
+/* Export Document as PDF via Share Link */
 router.get("/share-link/:link/export/pdf", async (req, res) => {
   try {
     const { link } = req.params;
@@ -161,13 +161,13 @@ router.get("/share-link/:link/export/pdf", async (req, res) => {
   }
 });
 
-/* ✏️ Update Document Content */
+/* Update Document Content */
 router.put("/:id", auth, async (req, res) => {
   try {
     const { content } = req.body;
     const { id } = req.params;
     let documentId = id;
-    
+
     if (content === undefined) {
       return res.status(400).json({ error: "Content is required" });
     }
@@ -175,7 +175,7 @@ router.put("/:id", auth, async (req, res) => {
     // First try to find by shareable link if ID is not a valid ObjectId
     if (!isValidId(id)) {
       // This might be a shareable link
-      const docByLink = await Document.findOne({ 
+      const docByLink = await Document.findOne({
         'shareableLinks.link': id,
         'shareableLinks.role': 'Editor',
         $or: [
@@ -183,11 +183,11 @@ router.put("/:id", auth, async (req, res) => {
           { 'shareableLinks.expiresAt': { $gt: new Date() } }
         ]
       });
-      
+
       if (!docByLink) {
         return res.status(400).json({ error: "Invalid document ID or shareable link" });
       }
-      
+
       documentId = docByLink._id;
     }
 
@@ -223,24 +223,24 @@ router.put("/:id", auth, async (req, res) => {
     // Update document content
     doc.content = content;
     doc.updatedAt = new Date();
-    
+
     // Add to version history if we have a user
     if (req.user?.id) {
       doc.versions.push({
         content: content,
         user: req.user.id
       });
-      
+
       // Keep only the last 20 versions
       if (doc.versions.length > 20) {
         doc.versions = doc.versions.slice(-20);
       }
     }
-    
+
     await doc.save();
 
-    res.status(200).json({ 
-      success: true, 
+    res.status(200).json({
+      success: true,
       message: "Document updated successfully",
       doc: {
         _id: doc._id,
@@ -250,14 +250,14 @@ router.put("/:id", auth, async (req, res) => {
     });
   } catch (err) {
     console.error('Error updating document:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to update document",
       details: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
   }
 });
 
-/* 🔗 Generate Shareable Link */
+/* Generate Shareable Link */
 router.post("/share/:id", auth, async (req, res) => {
   try {
     const { role, expiresAt } = req.body;
@@ -286,7 +286,7 @@ router.post("/share/:id", auth, async (req, res) => {
   }
 });
 
-/* 💾 Save Document Version */
+/* Save Document Version */
 router.post("/:id/saveVersion", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -311,7 +311,7 @@ router.post("/:id/saveVersion", auth, async (req, res) => {
   }
 });
 
-/* 📚 List Versions (Auth) */
+/* List Versions (Auth) */
 router.get("/:id/versions", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -333,7 +333,7 @@ router.get("/:id/versions", auth, async (req, res) => {
   }
 });
 
-/* 📚 List Versions via Share Link */
+/* List Versions via Share Link */
 router.get("/share-link/:link/versions", async (req, res) => {
   try {
     const { link } = req.params;
@@ -353,7 +353,7 @@ router.get("/share-link/:link/versions", async (req, res) => {
   }
 });
 
-/* 🔁 Restore Document from Version */
+/* Restore Document from Version */
 router.post("/:id/restore/:versionId", auth, async (req, res) => {
   try {
     const { id, versionId } = req.params;
@@ -379,11 +379,11 @@ router.post("/:id/restore/:versionId", auth, async (req, res) => {
   }
 });
 
-/* 🗑️ Delete Document */
+/* Delete Document */
 router.delete("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     if (!isValidId(id)) {
       return res.status(400).json({ error: "Invalid document ID" });
     }
@@ -401,14 +401,14 @@ router.delete("/:id", auth, async (req, res) => {
 
     // Delete the document
     await Document.findByIdAndDelete(id);
-    
-    res.status(200).json({ 
-      success: true, 
-      message: "Document deleted successfully" 
+
+    res.status(200).json({
+      success: true,
+      message: "Document deleted successfully"
     });
   } catch (err) {
     console.error('Error deleting document:', err);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to delete document",
       details: process.env.NODE_ENV === 'development' ? err.message : undefined
     });

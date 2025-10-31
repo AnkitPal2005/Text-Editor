@@ -2,9 +2,9 @@
 
 A beautiful, real-time collaborative document editor built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO. Features a modern UI with dark/light themes, real-time collaboration, and comprehensive document management.
 
-## ✨ Features
+## Features
 
-### 🚀 Core Features
+### Core Features
 - **Real-time Collaboration** - Multiple users can edit documents simultaneously
 - **Rich Text Editor** - Full-featured editor with formatting, lists, links, and more
 - **Smart Comments** - Add contextual comments with real-time updates
@@ -12,7 +12,7 @@ A beautiful, real-time collaborative document editor built with the MERN stack (
 - **Document Sharing** - Share documents with view/edit permissions
 - **PDF Export** - Export documents to PDF format
 
-### 🎨 Modern UI/UX
+### Modern UI/UX
 - **Beautiful Design** - Clean, modern interface with smooth animations
 - **Dark/Light Themes** - Seamless theme switching with system preference detection
 - **Responsive Design** - Works perfectly on desktop, tablet, and mobile
@@ -20,13 +20,13 @@ A beautiful, real-time collaborative document editor built with the MERN stack (
 - **Search & Filter** - Find documents quickly with advanced filtering
 - **Grid/List Views** - Choose your preferred document layout
 
-### 🔐 Security & Authentication
+### Security & Authentication
 - **Secure Authentication** - JWT-based auth with password strength validation
 - **Protected Routes** - Role-based access control
 - **Input Validation** - Comprehensive form validation and error handling
 - **Password Security** - Bcrypt hashing with strength indicators
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 19** - Latest React with modern hooks and features
@@ -46,7 +46,7 @@ A beautiful, real-time collaborative document editor built with the MERN stack (
 - **Bcrypt** - Password hashing
 - **PDFKit** - PDF generation
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js (v18 or later)
@@ -104,7 +104,7 @@ A beautiful, real-time collaborative document editor built with the MERN stack (
 4. **Open your browser**
    Navigate to `http://localhost:5173`
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 DocuCollab/
@@ -149,7 +149,7 @@ DocuCollab/
     └── package.json       # Frontend dependencies
 ```
 
-## 🎯 Available Scripts
+## Available Scripts
 
 ### Backend
 ```bash
@@ -165,7 +165,7 @@ npm run preview # Preview production build
 npm run lint    # Run ESLint
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /auth/signup` - Register a new user
@@ -187,7 +187,7 @@ npm run lint    # Run ESLint
 - `POST /api/comments` - Create a new comment
 - `PATCH /api/comments/resolve/:id` - Resolve (delete) a comment
 
-## 🎨 UI Improvements Made
+## UI Improvements Made
 
 ### Authentication Pages
 - **Modern split-screen design** with illustration and form
@@ -218,7 +218,7 @@ npm run lint    # Run ESLint
 - **Improved accessibility** with proper ARIA labels
 - **Modern 404 page** with helpful navigation
 
-## 🐛 Bug Fixes
+## Bug Fixes
 
 - Fixed duplicate Router components in main.jsx
 - Improved theme toggle positioning and styling
@@ -228,7 +228,7 @@ npm run lint    # Run ESLint
 - Fixed responsive design issues
 - Added loading states for better UX
 
-## 🌟 Key Features Showcase
+## Key Features Showcase
 
 ### Real-time Collaboration
 Documents update in real-time as multiple users edit simultaneously, with conflict resolution and smooth synchronization.
@@ -253,11 +253,11 @@ Contextual commenting system with real-time updates and user management.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [React](https://reactjs.org/) - UI library
 - [MongoDB](https://www.mongodb.com/) - Database
@@ -269,4 +269,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ for modern collaborative document editing**
+**Built for modern collaborative document editing**
